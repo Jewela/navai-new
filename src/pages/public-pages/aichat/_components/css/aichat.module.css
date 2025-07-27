@@ -1,0 +1,177 @@
+/* header,
+footer {
+  display: none;
+} */
+.mainContainer {
+  height: 100vh;
+  overflow: hidden !important;
+  width: 100%;
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin: 1rem;
+}
+
+@media (min-width: 768px) {
+  .contentContainer {
+    margin: 0;
+  }
+}
+
+.heading {
+  text-align: center;
+  color: white;
+  padding-bottom: 2rem;
+  font-size: 3rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .heading {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .heading {
+    font-size: 6rem;
+  }
+}
+
+.profileContainer {
+  width: 100%;
+  margin: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  background-color: white;
+  min-height: 18rem;
+}
+
+@media (min-width: 768px) {
+  .profileContainer {
+    width: 25rem;
+    margin: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profileContainer {
+    width: 32rem;
+  }
+}
+
+.profileImageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
+.profileImage {
+  border-radius: 100%;
+  border: 0.5rem solid white;
+  object-fit: cover;
+  width: 90px;
+  height: 90px;
+  margin-top: -50px;
+}
+
+@media (min-width: 768px) {
+  .profileImage {
+    width: 120px;
+    height: 120px;
+    margin-top: -65px;
+  }
+}
+
+.textContainer {
+  padding: 2rem;
+}
+
+.subheading {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 2rem;
+  font-weight: 600;
+  color: black;
+}
+
+@media (min-width: 768px) {
+  .subheading {
+    font-size: 2.5rem;
+    margin-top: 2rem;
+  }
+}
+
+.inputContainer {
+  margin-top: 1rem;
+}
+
+.inputField {
+  background-color: #f3f4f6;
+  padding: 1rem;
+  border: 2px solid #d1d5db;
+  outline: none;
+  border-radius: 0.75rem;
+  padding-left: 1.5rem;
+  width: 100%;
+  font-size: 1.25rem;
+  color: #000;
+}
+.inputField::placeholder {
+  color: #8f8f8f !important;
+}
+.inputField:focus {
+  border-color: #9ca3af;
+}
+
+.linkContainer {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  margin-top: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .linkContainer {
+    margin-top: 0;
+  }
+}
+
+.link {
+  text-decoration: underline;
+  color: white;
+  cursor: pointer;
+}
+
+.closeButton {
+  position: absolute;
+  top: 4%;
+  right: 2%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  font-weight: bold;
+  border-radius: 100px;
+  background-color: #ef4444;
+  color: white;
+  padding-bottom: 8px;
+}
+
+.fullscreenButton {
+  margin-top: 4px;
+  display: none;
+  padding: 8px 16px;
+  background-color: #10b981;
+  color: white;
+  border-radius: 4px;
+}

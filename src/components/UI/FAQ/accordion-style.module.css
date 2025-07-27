@@ -1,0 +1,38 @@
+.item {
+  border-bottom: 1px solid var(--primary-bg);
+  }
+  
+  .itemBtn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 1rem 0 ;
+    font-size: 1.25rem;
+    text-align: left;
+    /* color: #fff; */
+    background-color: transparent;
+    border: none;
+  }
+  
+  /* .itemBtn:hover {
+    background-color: #f3f3f3;
+  } */
+  
+  /* .itemBtnExpanded {
+    background-color: #e7e7e7;
+  } */
+  
+  .itemContent {
+    transition: height 0.2s ease-in-out;
+  }
+  
+  .itemPanel {
+    padding-bottom: 1.25rem;
+  }
+  
+  
+  
+  
+  

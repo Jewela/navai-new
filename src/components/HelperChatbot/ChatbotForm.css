@@ -1,0 +1,45 @@
+.image-container {
+  position: relative;
+  /* display: inline-block; */
+}
+
+.image-container .hover-text {
+  visibility: hidden;
+  /* width: 100px; */
+  background-color: rgb(255, 255, 255);
+  color: #000000;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  padding: 3px;
+  left: 50%;
+  margin-left: -50px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity .1s;
+}
+
+.image-container .hover-text::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* Arrow at the bottom of the text box */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 3px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+.image-container:hover .hover-text {
+  visibility: visible;
+  opacity: 1;
+}
+.icons-chatbot {
+  height: 25px;
+  width: 25px;
+  margin: 5px;
+  cursor: pointer;
+}

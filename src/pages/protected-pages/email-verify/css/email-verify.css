@@ -1,0 +1,55 @@
+.verify-account {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+}
+
+.otp__wrap {
+    display: grid;
+    grid-template-columns: repeat(5, 80px);
+    grid-gap: 10px;
+    /* grid-template-rows: ; */
+    margin: 20px auto;
+}
+
+.otp__wrap input {
+    background-color: #EEEEEE;
+    border-radius: 5px;
+    height: 60px;
+    border: none !important;
+    padding: 0px;
+    outline: none !important;
+    text-align: center;
+}
+
+.resend-otp,
+#verify {
+    grid-column-start: 1;
+    grid-column-end: 5;
+}
+
+.resend-otp {
+    font-size: 14px;
+}
+.send-otp{margin-left:20px;}
+
+#verify {
+    height: 45px;
+    line-height: 45px;
+    padding: 0 !important;
+    margin-top: 20px;
+}
+
+
+.avtor-wrapper .col-md-3 {
+    margin-bottom: 40px;
+}
+
+.filter-svg {
+    filter: blur(200px);
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    z-index: -1;
+}

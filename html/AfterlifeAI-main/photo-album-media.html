@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Afterlife AI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- BOOTSTRAP FRAMEWORK -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
+        integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- ICONS -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.0.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- THEME STYLE -->
+    <link rel="stylesheet" href="css/theme.css">
+
+</head>
+
+<body class="user-logged">
+
+
+    <!-- START HEADER -->
+
+    <header class="py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <nav class="navbar">
+                        <a class="navbar-brand" href="#"><img src="images/logo.svg" alt="logo"></a>
+                        <ul class="navbar-nav custom-menu">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">About Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"> Contact us </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled">Faq</a>
+                            </li>
+                        </ul>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav  ms-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="profile.html">Profile</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="avator.html">Avator</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="create-avator.html">Create Afterlifeai Avato</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="index.html">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- END HEADER -->
+
+
+    <section class="page-heading light-bg py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1 class="mb-0 h2 fw-bold">Photo Album</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="profile spacer-lg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 mx-auto">
+                    <div class="box-wrap">
+                        <div class="box-header">
+                            <h2 class="h3 mb-0">Photo album</h2>
+                        </div>
+                        <div class="box-body">
+                            <form action="" method="post">
+                                <div class="row">
+
+
+                                    <div class="col-md-12 mb-3">
+                                        <label for="">Upload Image</label>
+                                        <div class="drop-zone">
+                                            <span class="drop-zone__prompt">Drop file here or click to upload</span>
+                                            <input type="file" name="myFile" class="drop-zone__input" multiple>
+                                        </div>
+                                    </div>
+                                    
+                          
+
+                                    <!-- <div class="col-md-12 mt-4">
+                                        <button class="btn primary-btn">Save</button>
+                                    </div> -->
+                                </div>
+
+                                <div class="row photo-listing">
+                                    <div class="col-md-6">
+                                        <div class="photo_upload">
+                                            <div class="photo_upload__inner">
+                                            <img src="images/avator-1.jpg" alt="photo">
+                                            <div class="photo_upload__action">
+                                            <a href="javascript:void(0)" class="action-btn btn-edit" data-bs-toggle="modal" data-bs-target="#photo-modal"><i class="ri-pencil-line"></i></a>
+                                            <a href="javascript:void(0)" class="action-btn btn-del"><i class="ri-delete-bin-line"></i></a>
+                                           </div>
+                                        </div>
+                                           
+                                           <div class="photo__upload-descp">
+                                              <span>What is Lorem Ipsum?</span>
+                                             <p class="small">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                           </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="photo_upload">
+                                            <div class="photo_upload__inner">
+                                            <img src="images/avator-1.jpg" alt="photo">
+                                            <div class="photo_upload__action">
+                                            <a href="javascript:void(0)" class="action-btn btn-edit" data-bs-toggle="modal" data-bs-target="#photo-modal"><i class="ri-pencil-line"></i></a>
+                                            <a href="javascript:void(0)" class="action-btn btn-del"><i class="ri-delete-bin-line"></i></a>
+                                        </div>
+                                        </div>    
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="photo_upload">
+                                            <div class="photo_upload__inner">
+                                            <img src="images/avator-1.jpg" alt="photo">
+                                            <div class="photo_upload__action">
+                                            <a href="javascript:void(0)" class="action-btn btn-edit" data-bs-toggle="modal" data-bs-target="#photo-modal"><i class="ri-pencil-line"></i></a>
+                                            <a href="javascript:void(0)" class="action-btn btn-del"><i class="ri-delete-bin-line"></i></a>
+                                        </div>    
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="photo_upload">
+                                            <div class="photo_upload__inner">
+                                            <img src="images/avator-1.jpg" alt="photo">
+                                            <div class="photo_upload__action">
+                                            <a href="javascript:void(0)" class="action-btn btn-edit" data-bs-toggle="modal" data-bs-target="#photo-modal"><i class="ri-pencil-line"></i></a>
+                                            <a href="javascript:void(0)" class="action-btn btn-del"><i class="ri-delete-bin-line"></i></a>
+                                        </div>    
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="spacer-lg">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mx-auto text-white text-center">
+                    <div class="footer__content">
+                        <h2>Afterlife AI</h2>
+                        <div class="mb-1">Questions? Email: <a href="mailto:abc@gmail.com"
+                                class="text-white">abc@gmail.com</a></div>
+                        <div class="mb-1"><a href="javascript:void(0)">Privacy Statement</a></div>
+                        <div>&copy; Afterlifeai. All Rights Reserved</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+     <!-- Modal -->
+     <div class="modal fade" id="photo-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header p-4">
+                    <h2 class="modal-title fs-5 mb-0" id="exampleModalLabel">Photo Album</h2>
+                    <span class="h3 pointer" data-bs-dismiss="modal" aria-label="Close"><i class="ri-close-line"></i></span>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Enter subject">
+                        <label for="floatingInput">Subject</label>
+                      </div>
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingDate" placeholder="Date">
+                        <label for="floatingDate">Enter Date</label>
+                      </div>
+                      <div class="form-floating mb-3">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                        <label for="floatingTextarea">Description</label>
+                      </div>
+                      
+                                        <button class="btn primary-btn w-100">Save</button>
+
+
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
+        integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="js/theme.js"></script>
+
+
+</body>
+
+</html>

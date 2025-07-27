@@ -1,0 +1,65 @@
+.chatbot-data-box {
+  background: #fff;
+  position: fixed;
+  bottom: 55px;
+  right: 0;
+  z-index: 1;
+  border-radius: 16px;
+  height: 500px;
+  width: 400px;
+  overflow: scroll;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
+}
+
+.listing {
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+.listing-item {
+  display: flex;
+  background: white;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.listing-item img {
+  width: 150px;
+  height: auto;
+  margin-right: 20px;
+  border-radius: 4px;
+}
+
+.listing-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.certified {
+  color: green;
+  font-weight: bold;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.5em;
+  color: #b00b00;
+}
+
+.price {
+  font-size: 1.2em;
+  color: #b00b00;
+  font-weight: bold;
+}
+
+.details,
+.mileage {
+  font-size: 0.9em;
+  color: #666;
+}
+
+.mileage {
+  margin-top: 5px;
+}

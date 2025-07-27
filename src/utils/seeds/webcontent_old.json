@@ -1,0 +1,182 @@
+[
+  {
+    "home": [
+      {
+        "heading": "Rent an AI Agent",
+        "body": "Get an AI Chatbot lightening fast!",
+        "image1url": "/images/Ai_Chatbot_helper.png",
+        "image2url": "/images/YouTuber(1).png",
+        "image3url": "/images/expert_aichatbot.png"
+      }
+    ]
+  },
+  {
+    "products": [
+      {
+        "product1": [
+          {
+            "name": "AI Business ChatBot",
+            "heading": "Rent an AI Business Chatbot",
+            "body": "Get an AI Business Chatbot lightening fast!, Try it free for 30 days.",
+            "image1url": "/images/Ai_Chatbot_helper.png",
+            "image2url": "/product-images/product1/AI_ChatBot.png",
+            "image3url": "/product-images/product1/AI_chatbot_realestate.png",
+            "image4url": "/product-images/product1/aichatbot_menu.png",
+            "bullet1": [
+              {
+                "iconurl": "",
+                "heading": "AI Business ChatBot",
+                "bodytext": "Get an AI Business Chatbot lightening fast!"
+              }
+            ],
+            "bullet2": [
+              {
+                "iconurl": "",
+                "heading": "AI Business ChatBot",
+                "bodytext": "Get an AI Business Chatbot lightening fast!"
+              }
+            ],
+            "bullet3": [
+              {
+                "iconurl": "",
+                "heading": "AI Business ChatBot",
+                "bodytext": "Get an AI Business Chatbot lightening fast!"
+              }
+            ],
+            "bullet4": [
+              {
+                "iconurl": "",
+                "heading": "AI Business ChatBot",
+                "bodytext": "Get an AI Business Chatbot lightening fast!"
+              }
+            ],
+            "bullet5": [
+              {
+                "iconurl": "AI Business ChatBot",
+                "heading": "",
+                "bodytext": "Get an AI Business Chatbot lightening fast!"
+              }
+            ],
+            "bullet6": [
+              {
+                "iconurl": "AI Business ChatBot",
+                "heading": "",
+                "bodytext": "Get an AI Business Chatbot lightening fast!"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "product2": [
+          {
+            "name": "AI Content ChatBot",
+            "heading": "Rent an AI Agent",
+            "body": "Get an AI Chatbot lightening fast!",
+            "image1url": "/images/YouTuber(1).png",
+            "image2url": "/product-images/product2/knowledge_chatbot.png",
+            "image3url": "/product-images/product2/Youtuber_chatbot.png",
+            "image4url": "/product-images/product2/youtuber-marketing.png",
+            "bullet1": [
+              {
+                "iconurl": "",
+                "heading": "AI Content ChatBot",
+                "bodytext": "Get an AI Chatbot lightening fast!"
+              }
+            ],
+            "bullet2": [
+              {
+                "iconurl": "",
+                "heading": "AI Content ChatBot",
+                "bodytext": "Get an AI Chatbot lightening fast!"
+              }
+            ],
+            "bullet3": [
+              {
+                "iconurl": "",
+                "heading": "AI Content ChatBot",
+                "bodytext": "Get an AI Chatbot lightening fast!"
+              }
+            ],
+            "bullet4": [
+              {
+                "iconurl": "",
+                "heading": "AI Content ChatBot",
+                "bodytext": "Get an AI Chatbot lightening fast!"
+              }
+            ],
+            "bullet5": [
+              {
+                "iconurl": "",
+                "heading": "AI Content ChatBot",
+                "bodytext": "Get an AI Chatbot lightening fast!"
+              }
+            ],
+            "bullet6": [
+              {
+                "iconurl": "",
+                "heading": "AI Content ChatBot",
+                "bodytext": "Get an AI Chatbot lightening fast!"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "product3": [
+          {
+            "name": "AI Expert ChatBot",
+            "heading": "Rent an AI Agent",
+            "body": "Get an AI Chatbot lightening fast!",
+            "image1url": "/images/expert_aichatbot.png",
+            "image2url": "/product-images/product3/knowledge_chatbot.png",
+            "image3url": "/product-images/product3/Youtuber_chatbot.png",
+            "image4url": "/product-images/product3/youtuber-marketing.png",
+            "bullet1": [
+              {
+                "iconurl": "",
+                "heading": "AI Expert ChatBot",
+                "bodytext": "Get an AI Chatbot lightening fast!"
+              }
+            ],
+            "bullet2": [
+              {
+                "iconurl": "",
+                "heading": "AI Expert ChatBot",
+                "bodytext": "Get an AI Chatbot lightening fast!"
+              }
+            ],
+            "bullet3": [
+              {
+                "iconurl": "",
+                "heading": "AI Expert ChatBot",
+                "bodytext": "Get an AI Chatbot lightening fast!"
+              }
+            ],
+            "bullet4": [
+              {
+                "iconurl": "",
+                "heading": "AI Expert ChatBot",
+                "bodytext": "Get an AI Chatbot lightening fast!"
+              }
+            ],
+            "bullet5": [
+              {
+                "iconurl": "",
+                "heading": "AI Expert ChatBot",
+                "bodytext": "Get an AI Chatbot lightening fast!"
+              }
+            ],
+            "bullet6": [
+              {
+                "iconurl": "",
+                "heading": "AI Expert ChatBot",
+                "bodytext": "Get an AI Chatbot lightening fast!"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

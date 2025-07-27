@@ -1,0 +1,38 @@
+/* FOOTER */
+
+footer{
+    position: relative;
+}
+
+footer::before {
+    width: 60%;
+    height: 4px;
+    background: linear-gradient(90deg,#00a6e2 0,#808ce3 40%,#c04c86 71%,#eb5d2d);
+    content: "";
+    top: 80px;
+    position: absolute;
+    max-width: calc(100% - 100px);
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    /* opacity: 0.6; */
+    border-radius: 50%;
+}
+
+.cursor{
+    position: fixed;
+    top: 50%;
+    margin: 0 auto;
+    /* left: 0;
+    right: 0; */
+    margin: 0 auto;
+    width: 30px;
+    height: 30px;
+    transition: all .15s linear;
+    z-index: 9;
+    pointer-events: none;
+    will-change: transform;
+  
+}
+
