@@ -289,7 +289,6 @@ function ChatSection(props) {
     //         {
     //             headers: {
     //                 'Content-Type': 'application/json',
-    //                 'Authorization': 'Bearer ', // Replace YOUR_API_KEY with your actual API key
     //             },
     //             responseType: 'arraybuffer',
     //         }
@@ -447,7 +446,7 @@ function ChatSection(props) {
       //         {
       //             headers: {
       //                 'Content-Type': 'application/json',
-      //                 'Authorization': 'Bearer ', // Replace YOUR_API_KEY with your actual API key
+
       //             },
       //             responseType: 'arraybuffer',
       //         }
