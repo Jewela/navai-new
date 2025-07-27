@@ -277,32 +277,7 @@ function ChatSection(props) {
   };
 
   const onChangeaudio = async (event) => {
-    // try {
-    //     const response = await axios.post(
-    //         'https://api.openai.com/v1/audio/speech',
-    //         {
-    //             input: "Hello how are you",
-    //             voice: 'alloy',
-    //             // input: 1,
-    //             model: "tts-1",
-    //         },
-    //         {
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             responseType: 'arraybuffer',
-    //         }
-    //     );
-
-    //     const blob = new Blob([response.data], { type: 'audio/mpeg' });
-    //     const audioURL = URL.createObjectURL(blob);
-    //     setOutputAudioURL(audioURL);
-    //     console.log(`audio url: `, audioURL)
-    // } catch (error) {
-    //     console.error('Error generating audio:', error);
-    // }
-
-    // return;
+    
     console.log(event.target.files[0]);
     const formData = new FormData();
     formData.append("request", event.target.files[0]);
@@ -434,33 +409,6 @@ function ChatSection(props) {
       const formData = {
         text: "We got this baby",
       };
-      // try {
-      //     const response = await axios.post(
-      //         'https://api.openai.com/v1/audio/speech',
-      //         {
-      //             input: "Hello how are you",
-      //             voice: 'alloy',
-      //             // input: 1,
-      //             model: "tts-1",
-      //         },
-      //         {
-      //             headers: {
-      //                 'Content-Type': 'application/json',
-
-      //             },
-      //             responseType: 'arraybuffer',
-      //         }
-      //     );
-      //     console.log(response)
-      //     const blob = new Blob([response.data], { type: 'audio/mp3' });
-      //     const audioURL = URL.createObjectURL(blob);
-      //     setOutputAudioURL(audioURL);
-      //     console.log(`audio url: `, audioURL)
-      // } catch (error) {
-      //     console.error('Error generating audio:', error);
-      // }
-      // return;
-      // const { status, data: response } = await postRequest(`${AVTAR.TEXT_TO_SPEECH}`, formData);
       const response = await axios.post(`${AVTAR.TEXT_TO_SPEECH}`, formData, {
         headers: {
           "Content-Type": "application/json",
