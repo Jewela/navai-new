@@ -12,6 +12,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import {
   AUTH_ROUTE_SLUGS,
   PROTECTED_ROUTE_SLUGS,
+  PUBLIC_ROUTES_SLUGS,
 } from "../../../../app/constants";
 
 function SingunModal(props) {
@@ -59,7 +60,7 @@ function SingunModal(props) {
   });
 
   function handleNavigation() {
-    navigate(AUTH_ROUTE_SLUGS.PROFILE);
+    navigate(PUBLIC_ROUTES_SLUGS.ROOT);
   }
 
   const onSubmit = (data) => {
