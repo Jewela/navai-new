@@ -1,15 +1,16 @@
 import { useParams } from "react-router-dom";
 import { postRequest } from "../../../../app/httpClient/axiosClient";
 import { DEFAULT_VALUE, RESPONSE_CODE, SUBSCRIPTION_TYPES } from "../../../../app/constants";
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { AVTAR } from "../../../../app/config/endpoints";
 import { getErrorMessage } from "../../../../utils/helpers/apiErrorResponse";
-import { useEffect } from "react";
 import { Spinner } from "react-bootstrap";
 import actions, { CART_ACTIONS, CHAT_ACTIONS, RECENT_AVATARS_ACTION as recent_actions } from "../../../../redux/authenticate/actions";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import MeetingContainer from "./meetingContainer";
+import { getToken } from "../../../../app/Auth";
+import axios from "axios";
 
 function AvatorDetails() {
     const { id: avatorId } = useParams();
@@ -21,11 +22,85 @@ function AvatorDetails() {
     const [avatorDetails, setAvatorDetails] = useState({});
     const [recentVisitLoading, setRecentVisitLoading] = useState(false);
     const [avtarDetail, setAvtarDetail] = useState({});
+    const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+    const [isConversatingLoading, setIsConversatingLoading] = useState(false);
 
+    const audioRef = useRef(null);
+    const cancelAudioRef = useRef(false);
+    const hasCalledOnce = useRef(false);
+
+    
     const {
         avatarList: recentFavAvatarList = []
     } = useSelector(state => state.recent_avatar);
     const [{ avatarid: recentAvatarId = 0 } = {}] = recentFavAvatarList;
+    
+    // Get Avatar Audio File and play it
+    const getAvatarChat = async (isFirstSession = true) => {
+        try {
+            setIsConversatingLoading(true);
+            const token = getToken();
+
+            const response = await axios.post(
+                `https://afterlifeapi-afterlifeapislot1.azurewebsites.net/api/UserBotChat/GetWithVoice/${avatorId}`,
+                {},
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        Accept: "application/json",
+                        Authorization: `Bearer ${token}`,
+                        isFirstSession: JSON.stringify(isFirstSession),
+                    },
+                    responseType: "arraybuffer",
+                }
+            );
+
+            if (cancelAudioRef.current) return;
+
+            const audioBlob = new Blob([response.data], { type: "audio/mpeg" });
+            const audioUrl = URL.createObjectURL(audioBlob);
+            const audio = new Audio(audioUrl);
+
+            audioRef.current = audio;
+
+            audio.addEventListener("play", () => setIsAudioPlaying(true));
+            audio.addEventListener("ended", () => {
+                setIsAudioPlaying(false);
+                URL.revokeObjectURL(audioUrl);
+            });
+            audio.addEventListener("pause", () => setIsAudioPlaying(false));
+
+            setIsConversatingLoading(false);
+
+            if (!cancelAudioRef.current) {
+                audio.play();
+            } else {
+                URL.revokeObjectURL(audioUrl);
+            }
+        } catch (error) {
+            console.error("Error fetching/playing audio:", error);
+            setIsConversatingLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        cancelAudioRef.current = false;
+
+        if (!hasCalledOnce.current) {
+            hasCalledOnce.current = true;
+            getAvatarChat();
+        }
+
+        return () => {
+            cancelAudioRef.current = true;
+
+            if (audioRef.current) {
+                audioRef.current.pause();
+                audioRef.current.src = "";
+                audioRef.current = null;
+            }
+        };
+    }, []);
 
     async function getAvtarById(url) {
         setLoading(true);
@@ -178,6 +253,9 @@ function AvatorDetails() {
             <MeetingContainer
                 avatorDetails={avatorDetails}
                 userData={userData}
+                isConversatingLoading={isConversatingLoading}
+                isAudioPlaying={isAudioPlaying}
+                handleAvatarChat={getAvatarChat}
             />
             {/* <LeftSection avatarId={avatorId} /> */}
             {/* {Object.keys(avatorDetails).length > 0 &&
