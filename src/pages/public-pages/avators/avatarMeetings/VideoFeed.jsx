@@ -1,61 +1,139 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import Webcam from "react-webcam";
+import { SelfieSegmentation } from "@mediapipe/selfie_segmentation";
 import { DEFAULT_USER_IMG } from "../../../../app/constants";
 
-export default function VideoFeed(props) {
-  const videoRef = useRef(null);
-  const {user, videoCamera=false} = props;
-  const [streaming, setStreaming] = useState(false);
-  const [mediaStream, setMediaStream] = useState(null);
+export default function VideoFeed({ user, videoCamera }) {
+  const webcamRef = useRef(null);
+  const canvasRef = useRef(null);
+  const backgroundImageRef = useRef(null);
+  const segmentationRef = useRef(null);
+  const animationFrameRef = useRef(null);
+  const mediaStreamRef = useRef(null);
 
   useEffect(() => {
+    backgroundImageRef.current = new Image();
+    backgroundImageRef.current.src = "/video-background/background-test.jpg";
+
+    const segmentation = new SelfieSegmentation({
+      locateFile: (file) =>
+        `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`,
+    });
+
+    segmentation.setOptions({ modelSelection: 1 });
+
+    segmentation.onResults((results) => {
+      const canvas = canvasRef.current;
+      const ctx = canvas?.getContext("2d");
+
+      if (!ctx || !canvas || !results?.segmentationMask || !results?.image) return;
+
+      ctx.save();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      ctx.drawImage(results.segmentationMask, 0, 0, canvas.width, canvas.height);
+      ctx.globalCompositeOperation = "source-in";
+      ctx.drawImage(results.image, 0, 0, canvas.width, canvas.height);
+      ctx.globalCompositeOperation = "destination-over";
+
+      const bg = backgroundImageRef.current;
+      if (bg?.complete) {
+        ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
+      } else {
+        bg.onload = () => {
+          if (canvasRef.current) {
+            ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
+          }
+        };
+      }
+
+      ctx.restore();
+    });
+
+    segmentationRef.current = segmentation;
+
+    return () => {
+      // Cleanup on unmount
+      if (segmentationRef.current) segmentationRef.current.close();
+      cancelAnimationFrame(animationFrameRef.current);
+
+      if (mediaStreamRef.current) {
+        mediaStreamRef.current.getTracks().forEach((track) => track.stop());
+        mediaStreamRef.current = null;
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const renderLoop = async () => {
+      if (
+        webcamRef.current &&
+        webcamRef.current.video &&
+        webcamRef.current.video.readyState === 4 &&
+        segmentationRef.current
+      ) {
+        const video = webcamRef.current.video;
+
+        if (!mediaStreamRef.current && video.srcObject) {
+          mediaStreamRef.current = video.srcObject;
+        }
+
+        await segmentationRef.current.send({ image: video });
+      }
+
+      if (videoCamera) {
+        animationFrameRef.current = requestAnimationFrame(renderLoop);
+      }
+    };
+
     if (videoCamera) {
-      startCamera();
+      renderLoop();
     } else {
-      stopCamera();
+      cancelAnimationFrame(animationFrameRef.current);
+
+      const canvas = canvasRef.current;
+      const ctx = canvas?.getContext("2d");
+      if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Stop webcam stream
+      if (mediaStreamRef.current) {
+        mediaStreamRef.current.getTracks().forEach((track) => track.stop());
+        mediaStreamRef.current = null;
+      }
     }
-    setStreaming(videoCamera);
-    return () => stopCamera();
+
+    return () => cancelAnimationFrame(animationFrameRef.current);
   }, [videoCamera]);
 
-  const startCamera = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-      }
-      setMediaStream(stream);
-    } catch (error) {
-      console.error("Error accessing webcam:", error);
-    }
-  };
-
-  const stopCamera = () => {
-    if (mediaStream) {
-      mediaStream.getTracks().forEach(track => track.stop());
-    }
-    if (videoRef.current) {
-      videoRef.current.srcObject = null;
-    }
-    setMediaStream(null);
-  };
-
   return (
-    //d-flex flex-column align-items-center
-    <div className={`col-md-5 position-relative bg-dark rounded shadow ${ streaming ? "p-0 align-items-center":" p-2 justify-content-center"}`}>
-        {streaming ? (
-        <div className="w-100">
-          <video
-            ref={videoRef}
-            autoPlay
-            playsInline
-            muted
+    <div
+      className={`col-md-5 position-relative bg-dark rounded shadow ${
+        videoCamera ? "p-0 align-items-center" : "p-2 justify-content-center"
+      }`}
+    >
+      {videoCamera ? (
+        <div className="w-100 position-relative">
+          <Webcam
+            ref={webcamRef}
+            audio={false}
+            videoConstraints={{
+              width: 640,
+              height: 480,
+              facingMode: "user",
+            }}
+            className="d-none"
+          />
+          <canvas
+            ref={canvasRef}
+            width={640}
+            height={480}
             className="w-100"
             style={{ maxHeight: "400px", objectFit: "cover" }}
           />
         </div>
         ) : (
           <img
-            src={user.profileImage || DEFAULT_USER_IMG }
+            src={user.profileImage || DEFAULT_USER_IMG}
             alt="User fallback"
             className="img-fluid rounded"
             style={{ maxHeight: "400px", objectFit: "contain" }}
