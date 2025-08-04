@@ -121,7 +121,7 @@ export default function VideoFeed({ user, videoCamera }) {
               height: 480,
               facingMode: "user",
             }}
-            className="d-none"
+            style={{ visibility: "hidden", position: "absolute", top: 0, left: 0, width: 0, height: 0 }}
           />
           <canvas
             ref={canvasRef}
