@@ -120,16 +120,16 @@ export default function VideoFeedNew({ user, videoCamera }) {
             ref={webcamRef}
             audio={false}
             videoConstraints={{
-              width: 640,
-              height: 480,
+              width: 1920,
+              height: 1080,
               facingMode: "user",
             }}
             style={{ visibility: "hidden", position: "absolute", top: 0, left: 0, width: 0, height: 0 }}
           />
           <canvas
             ref={canvasRef}
-            width={640}
-            height={480}
+            width={1920}
+            height={1080}
             className="w-100"
             style={{ maxHeight: "calc(100vh - 130px)", objectFit: "cover" }}
           />
