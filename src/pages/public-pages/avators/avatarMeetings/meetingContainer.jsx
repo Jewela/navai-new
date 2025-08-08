@@ -113,7 +113,7 @@ function MeetingContainer(props) {
           </div>
           <div className="text-center">
             <img
-              src={user.profileImage || DEFAULT_USER_IMG}
+              src={user.profileImage.imageBlobUrl || DEFAULT_USER_IMG}
               alt="Bob's profile"
               className="rounded border border-primary shadow"
               style={{ width: "60px", height: "60px", objectFit: "cover" }}
