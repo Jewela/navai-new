@@ -34,6 +34,7 @@ import { AVTAR } from "../app/config/endpoints/index.js";
 import { RESPONSE_CODE } from "../app/constants/index.js";
 import AvatarMeetingsNew from "../pages/public-pages/avators/avatarMeetingsNew";
 import MeetingLayout from "../container/layouts/meetingLayout.js";
+import AllModals from "../container/layouts/allModals.js";
 
 function AppRoutes({ isAuthenticated, emailVerified }) {
   const location = useLocation();
@@ -160,80 +161,82 @@ function AppRoutes({ isAuthenticated, emailVerified }) {
     // <Router >
     <Fragment>
       <Suspense fallback={<div>Loading...</div>}>
-          <Routes>
+        <Routes>
+          <Route element={<AllModals />}>
             <Route element={<MeetingLayout />}>
-            {WithoutNavbarFooterRoutes.map(
-              ({ component: Component, slug, exact }, index) => (
-                <Route
-                  path={`${slug}`}
-                  key={index}
-                  exact
-                  element={<Component />}
-                />
-              )
-            )}
+              {WithoutNavbarFooterRoutes.map(
+                ({ component: Component, slug, exact }, index) => (
+                  <Route
+                    path={`${slug}`}
+                    key={index}
+                    exact
+                    element={<Component />}
+                  />
+                )
+              )}
             </Route>
             <Route element={<Layout />}>
-            {PublicRoutes.map(
-              ({ component: Component, slug, exact }, index) => (
-                <Route
-                  path={`${slug}`}
-                  key={index}
-                  exact
-                  element={<Component />}
-                />
-              )
-            )}
+              {PublicRoutes.map(
+                ({ component: Component, slug, exact }, index) => (
+                  <Route
+                    path={`${slug}`}
+                    key={index}
+                    exact
+                    element={<Component />}
+                  />
+                )
+              )}
 
-            {ProtectedRoutes.map(
-              ({ component: Component, slug, exact }, index) => (
-                <Route
-                  path={`${slug}`}
-                  key={index}
-                  exact
-                  element={
-                    <ProtectedRouteHelper
-                      isAuthenticated={isAuthenticated}
-                      emailVerified={emailVerified}
-                    >
-                      <Component />
-                    </ProtectedRouteHelper>
-                  }
-                />
-              )
-            )}
+              {ProtectedRoutes.map(
+                ({ component: Component, slug, exact }, index) => (
+                  <Route
+                    path={`${slug}`}
+                    key={index}
+                    exact
+                    element={
+                      <ProtectedRouteHelper
+                        isAuthenticated={isAuthenticated}
+                        emailVerified={emailVerified}
+                      >
+                        <Component />
+                      </ProtectedRouteHelper>
+                    }
+                  />
+                )
+              )}
 
-            {AuthorizedRoutes.map(
-              ({ component: Component, slug, exact }, index) => (
-                <Route
-                  path={`${slug}`}
-                  key={index}
-                  exact
-                  element={
-                    <AuthRouteHelper isAuthenticated={isAuthenticated}>
-                      <Component />
-                    </AuthRouteHelper>
-                  }
-                />
-              )
-            )}
+              {AuthorizedRoutes.map(
+                ({ component: Component, slug, exact }, index) => (
+                  <Route
+                    path={`${slug}`}
+                    key={index}
+                    exact
+                    element={
+                      <AuthRouteHelper isAuthenticated={isAuthenticated}>
+                        <Component />
+                      </AuthRouteHelper>
+                    }
+                  />
+                )
+              )}
 
-            {AdminAuthorizedRoutes.map(
-              ({ component: Component, slug, exact }, index) => (
-                <Route
-                  path={`${slug}`}
-                  key={index}
-                  exact
-                  element={
-                    <AdminAuthRoutHelper isAuthenticated={isAuthenticated}>
-                      <Component />
-                    </AdminAuthRoutHelper>
-                  }
-                />
-              )
-            )}
+              {AdminAuthorizedRoutes.map(
+                ({ component: Component, slug, exact }, index) => (
+                  <Route
+                    path={`${slug}`}
+                    key={index}
+                    exact
+                    element={
+                      <AdminAuthRoutHelper isAuthenticated={isAuthenticated}>
+                        <Component />
+                      </AdminAuthRoutHelper>
+                    }
+                  />
+                )
+              )}
             </Route>
-          </Routes>
+          </Route>
+        </Routes>
       </Suspense>
     </Fragment>
     // </Router>

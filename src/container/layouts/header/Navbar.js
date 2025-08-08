@@ -76,20 +76,20 @@ function NavBar() {
               </li>
             </ul>
           </div>
-          <AuthModal
+          {/* <AuthModal
             show={openAuthModal ? true : false}
             preventClose={preventClose}
             onHide={handleClose}
             backdrop="static"
             keyboard={false}
-          />
-          <BusinessAuthModal
+          /> */}
+          {/* <BusinessAuthModal
             show={openBusinessAuthModal ? true : false}
             preventClose={preventClose}
             onHide={handleClose}
             backdrop="static"
             keyboard={false}
-          />
+          /> */}
           <Button
             variant="btn primary-btn ms-5 account-btn"
             onClick={handleShow}
@@ -104,13 +104,13 @@ function NavBar() {
           </Button> */}
         </>
       )}
-      <UserSubscriptionDialog
+      {/* <UserSubscriptionDialog
         show={openSubscriptioinModal ? true : false}
         preventClose={preventClose}
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
-      />
+      /> */}
     </>
   );
 }
