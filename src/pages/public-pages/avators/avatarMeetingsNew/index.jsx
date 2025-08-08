@@ -337,8 +337,13 @@ const AvatarMeetingsNew = () => {
         const link = document.createElement('a');
         link.href = url;
         
-        const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
-        const fileName = `avatar-meeting-${avatorDetails.name || 'session'}-${timestamp}.webm`;
+        const now = new Date();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const year = now.getFullYear();
+        const time = now.toTimeString().slice(0, 8).replace(/:/g, '-');
+
+        const fileName = `navai-cloud-${month}-${day}-${year}-${time}.webm`;
         link.download = fileName;
         
         document.body.appendChild(link);
