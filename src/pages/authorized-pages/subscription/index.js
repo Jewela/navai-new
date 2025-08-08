@@ -282,7 +282,7 @@ function Subscription() {
           {subscriptionPlans.length > 0
             ? subscriptionPlans.map((item, index) => (
               <React.Fragment key={`subs-key-${index}`}>
-                <div className="col-md-4">
+                <div className="col-md-3">
                   <div className="card plan-card h-100">
                     <div className="card-body">
                       <div className="mb-4"></div>
