@@ -728,7 +728,8 @@ const AvatarMeetingsNew = () => {
             
             recorder.onstop = () => {
                 const audioBlob = new Blob(audioChunksRef.current, { type: mimeType });
-                saveAudioFile(audioBlob, mimeType);
+                // Commented out to prevent auto-saving
+                // saveAudioFile(audioBlob, mimeType);
                 stream.getTracks().forEach(track => track.stop());
             };
             
