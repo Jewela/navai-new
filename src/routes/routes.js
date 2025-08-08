@@ -34,13 +34,14 @@ export const PublicRoutes = [
     ),
     exact: true,
   },
-  {
-    slug: `${AUTH_ROUTE_SLUGS.AVATAR_MEETING}/:id`,
-    component: lazy(() =>
-      import("../pages/public-pages/avators/avatarMeetings")
-    ),
-    exact: true,
-  },
+  // Uncomment the following lines if you want to include the Avatar Meetings old route 
+  // {
+  //   slug: `${AUTH_ROUTE_SLUGS.AVATAR_MEETING}/:id`,
+  //   component: lazy(() =>
+  //     import("../pages/public-pages/avators/avatarMeetings")
+  //   ),
+  //   exact: true,
+  // },
   {
     slug: `${PUBLIC_ROUTES_SLUGS.AVATORS}/:id/:category`,
     component: lazy(() =>
@@ -309,6 +310,17 @@ export const AdminAuthorizedRoutes = [
   {
     slug: `${AUTH_ROUTE_SLUGS.PLAYGROUND}/:id`,
     component: lazy(() => import("../pages/authorized-pages/playground/id")),
+    exact: true,
+  },
+];
+
+// ************************** Without Navbar and Footer ROUTES **************************
+export const WithoutNavbarFooterRoutes = [
+  {
+    slug: `${AUTH_ROUTE_SLUGS.AVATAR_MEETING}/:id`,
+    component: lazy(() =>
+      import("../pages/public-pages/avators/avatarMeetingsNew")
+    ),
     exact: true,
   },
 ];

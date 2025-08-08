@@ -20,6 +20,7 @@ import {
   ProtectedRoutes,
   PublicRoutes,
   AdminAuthorizedRoutes,
+  WithoutNavbarFooterRoutes,
 } from "./routes.js";
 import Layout from "../container/layouts/index.js";
 import { getErrorMessage } from "../utils/helpers/apiErrorResponse.js";
@@ -31,6 +32,8 @@ import {
 } from "../redux/authenticate/actions.js";
 import { AVTAR } from "../app/config/endpoints/index.js";
 import { RESPONSE_CODE } from "../app/constants/index.js";
+import AvatarMeetingsNew from "../pages/public-pages/avators/avatarMeetingsNew";
+import MeetingLayout from "../container/layouts/meetingLayout.js";
 
 function AppRoutes({ isAuthenticated, emailVerified }) {
   const location = useLocation();
@@ -157,8 +160,20 @@ function AppRoutes({ isAuthenticated, emailVerified }) {
     // <Router >
     <Fragment>
       <Suspense fallback={<div>Loading...</div>}>
-        <Layout>
           <Routes>
+            <Route element={<MeetingLayout />}>
+            {WithoutNavbarFooterRoutes.map(
+              ({ component: Component, slug, exact }, index) => (
+                <Route
+                  path={`${slug}`}
+                  key={index}
+                  exact
+                  element={<Component />}
+                />
+              )
+            )}
+            </Route>
+            <Route element={<Layout />}>
             {PublicRoutes.map(
               ({ component: Component, slug, exact }, index) => (
                 <Route
@@ -217,8 +232,8 @@ function AppRoutes({ isAuthenticated, emailVerified }) {
                 />
               )
             )}
+            </Route>
           </Routes>
-        </Layout>
       </Suspense>
     </Fragment>
     // </Router>

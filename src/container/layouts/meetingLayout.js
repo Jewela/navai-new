@@ -12,7 +12,7 @@ const AdminLayout = lazy(() => import('./adminLayout'))
 
 const PLAYGROUND_SLUG = 'playground';
 
-function Layout(props) {
+function MeetingLayout(props) {
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
@@ -44,11 +44,9 @@ function Layout(props) {
 
     return (
         <div className={`App ${isAuthenticated ? 'user-logged' : ''}`}>
-            {new RegExp(`^/${PLAYGROUND_SLUG}/\\d+$`).test(pathname) ? null : <Header />}
             <Outlet/>
-            <Footer />
         </div>
     )
 }
 
-export default Layout;
+export default MeetingLayout;
