@@ -2,7 +2,31 @@ import { useEffect, useRef } from "react";
 import Webcam from "react-webcam";
 import { SelfieSegmentation } from "@mediapipe/selfie_segmentation";
 import { DEFAULT_USER_IMG } from "../../../../app/constants";
-import { Avatar, Text } from "@fluentui/react-components";
+import { Avatar, makeStyles, Text, tokens } from "@fluentui/react-components";
+
+
+const useStyles = makeStyles({
+  userCtn: {
+    boxShadow: tokens.shadow8,
+    width: '100%',
+    height: '100%',
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '10px',
+    backgroundColor: '#F3E9F2',
+    padding: '0.5rem',
+    backgroundImage: 'radial-gradient(at 63% -12%, hsla(218, 36%, 40%, .1) 0px, transparent 71%), radial-gradient(at 26% 96%, hsla(20, 93%, 88%, .1) 0px, transparent 76%), radial-gradient(at 74% 102%, hsla(253, 46%, 29%, .1) 0px, transparent 73%)',
+    backgroundSize: 'cover',
+  },
+  videoMode: {
+    padding: '0',
+  },
+  noVideoMode: {
+    padding: '1rem',
+  }
+})
 
 export default function VideoFeedNew({ user, videoCamera }) {
   const webcamRef = useRef(null);
@@ -11,6 +35,8 @@ export default function VideoFeedNew({ user, videoCamera }) {
   const segmentationRef = useRef(null);
   const animationFrameRef = useRef(null);
   const mediaStreamRef = useRef(null);
+
+  const classes = useStyles();
 
   console.log("VideoFeedNew user:", user);
 
@@ -110,8 +136,8 @@ export default function VideoFeedNew({ user, videoCamera }) {
 
   return (
     <div
-      className={`w-100 h-100 position-relative bg-dark rounded d-flex align-items-center justify-content-center shadow ${
-        videoCamera ? "p-0 align-items-center" : "p-2 justify-content-center"
+      className={`${classes.userCtn} ${
+        videoCamera ? classes.videoMode : classes.noVideoMode
       }`}
     >
       {videoCamera ? (
@@ -136,8 +162,8 @@ export default function VideoFeedNew({ user, videoCamera }) {
         </div>
         ) : (
           <div className="d-flex gap-2 flex-column align-items-center justify-content-center">
-          <Avatar style={{width: '60px', height: '60px'}} image={{ src: user.profileImage.imageBlobUrl || DEFAULT_USER_IMG }} name={user.firstName + ' ' + user.lastName} />
-          <Text size={300} weight={500}>{user.firstName + ' ' + user.lastName}</Text>
+          <Avatar style={{width: '200px', height: '200px'}} image={{ src: user.profileImage.imageBlobUrl || DEFAULT_USER_IMG }} name={user.firstName + ' ' + user.lastName} />
+          {/* <Text size={300} weight={500}>{user.firstName + ' ' + user.lastName}</Text> */}
           </div>
           // <img
           //   src={user.profileImage || DEFAULT_USER_IMG}

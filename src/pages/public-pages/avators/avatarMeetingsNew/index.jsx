@@ -1,4 +1,4 @@
-import { Avatar, Button, FluentProvider, teamsDarkTheme, Text } from '@fluentui/react-components';
+import { Avatar, Button, FluentProvider, makeStyles, teamsDarkTheme, teamsLightTheme, Text, tokens } from '@fluentui/react-components';
 import { ArrowLeft24Regular, MicFilled, MicOffFilled, RecordFilled, RecordStopFilled, VideoFilled, VideoOffFilled } from '@fluentui/react-icons';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,10 +14,24 @@ import actions, { CART_ACTIONS, CHAT_ACTIONS } from '../../../../redux/authentic
 import axios from 'axios';
 
 const myCustomTheme = {
-    ... teamsDarkTheme,
-    // colorNeutralBackground1: '#010101',
+    ... teamsLightTheme,
+    colorNeutralBackground1: '#EBEBEB',
     // colorNeutralForeground2BrandHover: '#006aff',
 }
+
+const useStyles = makeStyles({
+    avatarBackground: {
+        backgroundColor: '#E0F1F4',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        gap: '1rem',
+        borderRadius: '10px',
+        boxShadow: tokens.shadow8,
+    }
+})
 
 
 const AvatarMeetingsNew = () => {
@@ -32,6 +46,8 @@ const AvatarMeetingsNew = () => {
     const [sessionChunks, setSessionChunks] = useState([]);
     const [recordingError, setRecordingError] = useState(null);
     const [recordingDuration, setRecordingDuration] = useState(0);
+
+    const classes = useStyles();
     
     // Refs for session recording
     const sessionRecorderRef = useRef(null);
@@ -795,7 +811,7 @@ const AvatarMeetingsNew = () => {
                     {isSessionRecording && (
                         <div className='d-flex align-items-center gap-2'>
                             <Text size={300} style={{color: 'red', fontWeight: 'bold'}}>● RECORDING</Text>
-                            <Text size={300} style={{color: 'white'}}>{formatDuration(recordingDuration)}</Text>
+                            <Text size={300} style={{color: 'black'}}>{formatDuration(recordingDuration)}</Text>
                         </div>
                     )}
                 </div>
@@ -816,8 +832,8 @@ const AvatarMeetingsNew = () => {
             )}
             
             <div className='d-flex' style={{height: 'calc(100vh - 63.6px)'}}>
-                <div style={{ width: '80%' }} className='d-flex flex-column align-items-center px-3'>
-                    <div style={{ border: '1px solid rgba(255, 255, 255, 0.4)' }} className='w-100 h-100 d-flex align-items-center justify-content-center rounded-2'>
+                <div style={{ width: '80%' }} className='d-flex flex-column align-items-center ps-3'>
+                    <div className='w-100 h-100 d-flex align-items-center justify-content-center rounded-2'>
                         <VideoFeedNew user={userData} videoCamera={videoCamera} />
                     </div>
                     <div className='p-2 d-flex gap-3'>
@@ -856,10 +872,10 @@ const AvatarMeetingsNew = () => {
                 <div style={{ width: '20%' }} className='d-flex p-2 align-items-center'>
                     <div style={{ 
                         height: '200px', 
-                        border: isAudioPlaying ? '2px solid #00ff00' : '1px solid rgba(255, 255, 255, 0.4)' 
-                    }} className='d-flex flex-column rounded-2 gap-2 align-items-center justify-content-center w-100'>
-                        <Avatar style={{width: '60px', height: '60px'}} image={{ src: avatorDetails.image || DEFAULT_AVATAR_IMG}}/>
-                        <Text size={300} weight={500}>{avatorDetails.name}</Text>
+                        border: isAudioPlaying ? '1px solid #00ff00' : '1px solid rgba(0, 0, 0, 0.4)' 
+                    }} className={classes.avatarBackground}>
+                        <Avatar style={{maxHeight: '200px', maxWidth: '200px', minHeight: '80px', minWidth: '80px'}} image={{ src: avatorDetails.image || DEFAULT_AVATAR_IMG}}/>
+                        {/* <Text size={300} weight={500}>{avatorDetails.name}</Text> */}
                         {isAudioPlaying && (
                             <Text size={200} style={{color: '#00ff00', fontWeight: 'bold'}}>Speaking...</Text>
                         )}
