@@ -12,6 +12,7 @@ import { getErrorMessage } from '../../../../utils/helpers/apiErrorResponse';
 import { postRequest } from '../../../../app/httpClient/axiosClient';
 import actions, { CART_ACTIONS, CHAT_ACTIONS } from '../../../../redux/authenticate/actions';
 import axios from 'axios';
+import "./styles.css"
 
 const myCustomTheme = {
     ... teamsLightTheme,
@@ -39,6 +40,7 @@ const AvatarMeetingsNew = () => {
     const [toggleMic, setToggleMic] = useState(true);
     const [toggleRecord, setToggleRecord] = useState(false);
     const [videoCamera, setVideoCamera] = useState(true);
+    const [showBlinker, setShowBlinker] = useState(false);
 
     // Enhanced session recording states
     const [isSessionRecording, setIsSessionRecording] = useState(false);
@@ -715,6 +717,7 @@ const AvatarMeetingsNew = () => {
 
     const handleMicrophoneInput = async () => {
         try {
+            setShowBlinker(true);
             setToggleMic(state => !state);
             if(isAudioPlaying || isConversatingLoading) return;
             const stream = await navigator.mediaDevices.getUserMedia({ 
@@ -767,6 +770,7 @@ const AvatarMeetingsNew = () => {
 
     const stopRecording = () => {
         setToggleMic(state => !state);
+        setShowBlinker(false);
         if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
             mediaRecorderRef.current.stop();
         }
@@ -846,9 +850,31 @@ const AvatarMeetingsNew = () => {
                         {toggleMic && <div onClick={handleMicrophoneInput} className='d-flex flex-column align-items-center'>
                             <Button size='large' appearance='transparent' disabled={isAudioPlaying || isConversatingLoading} icon={<MicFilled />} />
                         </div>}
-                        {!toggleMic && <div onClick={stopRecording} className='d-flex flex-column align-items-center'>
-                            <Button size='large' appearance='transparent' icon={<MicOffFilled />} />
-                        </div>}
+                        {!toggleMic && (
+                        <div
+                            onClick={stopRecording}
+                            className="d-flex flex-column align-items-center position-relative"
+                            style={{ display: "inline-block" }}
+                        >
+                            {/* Wrapper for button */}
+                            <div style={{ position: "relative", display: "inline-block" }}>
+                            <Button
+                                size="large"
+                                appearance="transparent"
+                                icon={<MicOffFilled />}
+                            />
+                            {/* Blinker absolutely positioned over button */}
+                            <span
+                                className="blinker-dot"
+                                style={{
+                                position: "absolute",
+                                top: "2px",
+                                right: "2px"
+                                }}
+                            />
+                            </div>
+                        </div>
+                        )}
                         {toggleRecord && <div onClick={stopSessionRecording} className='d-flex flex-column align-items-center'>
                             <Button 
                                 size='large' 
