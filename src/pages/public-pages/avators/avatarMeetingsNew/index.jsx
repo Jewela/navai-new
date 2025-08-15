@@ -48,6 +48,7 @@ const AvatarMeetingsNew = () => {
     const [sessionChunks, setSessionChunks] = useState([]);
     const [recordingError, setRecordingError] = useState(null);
     const [recordingDuration, setRecordingDuration] = useState(0);
+    const [recordedAudioBlob, setRecordedAudioBlob] = useState(null);
 
     const classes = useStyles();
     
@@ -416,17 +417,33 @@ const AvatarMeetingsNew = () => {
     };
 
     // Enhanced avatar audio function with better recording integration
-    const getAvatarChat = async (isFirstSession = true) => {
+    const getAvatarChat = async (isFirstSession = true, userAudioBlobl = null) => {
         try {
             setIsConversatingLoading(true);
             const token = getToken();
     
             // Clean up any existing avatar audio before creating new one
             cleanupPreviousAvatarAudio();
+
+            // Create FormData object
+            const formData = new FormData();
+            
+            // Add audio file if provided
+            if (userAudioBlobl) {
+                // Determine file extension based on blob type
+                let fileName = 'audio.mp3';
+                if (userAudioBlobl.type.includes('webm')) {
+                    fileName = 'audio.webm';
+                } else if (userAudioBlobl.type.includes('wav')) {
+                    fileName = 'audio.wav';
+                }
+                
+                formData.append('audioFile', userAudioBlobl, fileName);
+            }
     
             const response = await axios.post(
                 `https://afterlifeapi-afterlifeapislot1.azurewebsites.net/api/UserBotChat/GetWithVoice/${avatorId}`,
-                {},
+                formData,
                 {
                     headers: {
                         "Content-Type": "multipart/form-data",
@@ -752,9 +769,11 @@ const AvatarMeetingsNew = () => {
             
             recorder.onstop = () => {
                 const audioBlob = new Blob(audioChunksRef.current, { type: mimeType });
+                setRecordedAudioBlob(audioBlob); // Store the blob in state
                 // Commented out to prevent auto-saving
                 // saveAudioFile(audioBlob, mimeType);
                 stream.getTracks().forEach(track => track.stop());
+                getAvatarChat(false, audioBlob);
             };
             
             recorder.start(1000);
@@ -776,7 +795,8 @@ const AvatarMeetingsNew = () => {
         }
         setIsRecording(false);
         setMediaRecorder(null);
-        getAvatarChat(false);
+        // Don't call getAvatarChat immediately - wait for the blob to be created
+        // getAvatarChat(false);
     };
 
     const saveAudioFile = (audioBlob, mimeType) => {
