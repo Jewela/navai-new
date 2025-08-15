@@ -141,8 +141,8 @@ export const profile = {
 export const SUBSCRIPTION = {
   LIST: `${BASEURL}/Subscription/GetSubscriptionPrice`,
   SUBS_MODEL: `${BASEURL}/Subscription/GetSubscriptionModels`,
-  CHECKOUT_SESSION: `${BASEURL}/CreateStripeSubscription`,
-  CHECKOUT_PAYPAL_SESSION: `${BASEURL}/CreatePayPalSubscription`,
+  CHECKOUT_SESSION: `${BASEURL}/CreateCustomStripeSubscription`,
+  CHECKOUT_PAYPAL_SESSION: `${BASEURL}/CreateCustomPayPalSubscription`,
   ACTIVE: `${BASEURL}/Subscription/GetActiveGateway`,
   CANCEL: `${BASEURL}/CancelActiveSubscription`,
   CREATE_STRIPE_INTENT: `${NODE_API_BASEURL}${NODE_API_PREFIX}/CreateStripeIntent`,
