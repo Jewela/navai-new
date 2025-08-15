@@ -54,8 +54,8 @@ function Cart() {
   }, 0);
 
   const haneleCheckout = async () => {
-    const [{avatarId, duration}] = cartItems
-    console.log({cartItems, avatarId, duration});
+    const [{avatarId, duration, price}] = cartItems
+    console.log({cartItems, avatarId, duration, price});
     // return false;
     try {
       setCheckoutLoading(true);
@@ -65,6 +65,7 @@ function Cart() {
       const payload = {
         "avatarIds": [avatarId],
         "duration": duration,
+        "amount": price
       };
       const response = await postRequest(SUBSCRIPTION.CHECKOUT_SESSION, payload);
 
