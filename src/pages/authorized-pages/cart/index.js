@@ -49,18 +49,31 @@ function Cart() {
   const [isLoading, setLoading] = useState(true);
   const [isCheckoutLoading, setCheckoutLoading] = useState(false);
   const [strpeIntententStatus, setStrpeIntententStatus] = useState(false);
-  const todayDate = new Date().toISOString().split("T")[0]; // yyyy-mm-dd
+  // Keep the date input value in yyyy-mm-dd format
+  const todayDate = new Date().toISOString().split("T")[0]; // yyyy-mm-dd for <input>
 
-  // Default isoDate = tomorrow
+  // Store full ISO for today
+  const fullTodayISO = new Date().toISOString(); // 2025-08-09T13:10:14.170Z
+
+  // Default isoDate = tomorrow (yyyy-mm-dd for input)
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
-  const [isoDate, setIsoDate] = useState(tomorrow.toISOString().split("T")[0]);
+  const [isoDate, setIsoDate] = useState(tomorrow.toISOString().split("T")[0]); // yyyy-mm-dd
+
+  // Store full ISO for tomorrow
+  const [fullIsoDate, setFullIsoDate] = useState(tomorrow.toISOString()); // 2025-08-10T13:10:14.170Z
+
   const [dateDifference, setDateDifference] = useState(1);
 
   const handleChange = (e) => {
     const localDate = e.target.value; // e.g. "2025-08-17"
-    const utcDate = new Date(localDate).toISOString();
+
+    // Update state for input
     setIsoDate(localDate);
+
+    // Convert to full ISO and store separately
+    const utcDate = new Date(localDate).toISOString();
+    setFullIsoDate(utcDate);
 
     // Convert both dates to Date objects
     const selected = new Date(localDate);
@@ -92,14 +105,14 @@ function Cart() {
       // const response = await postRequest(SUBSCRIPTION.CREATE_STRIPE_INTENT, payload);
       // const duration = cartItems
       const payload = {
-        "avatarIds": [avatarId],
+        avatarId,
         "duration": duration,
         "amount": totalsum
       };
       if(durationIn === 'Days') {
         payload.subscriptionDateTimeRange = {
-          "startDateTime": todayDate,
-          "endDateTime": isoDate
+          "startDateTime": fullTodayISO,
+          "endDateTime": fullIsoDate
         }
         delete payload.duration;
       }
