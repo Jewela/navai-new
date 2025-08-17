@@ -308,7 +308,7 @@ function Cart() {
                     </div>)}
                     <div className="d-flex justify-content-between align-items-center">
                       <div>Subtotal</div>
-                      <div><strong>{`${currency} ${totalsum}`}</strong></div>
+                      <div><strong> {durationIn === 'Days' && <span>{dateDifference} × </span>}{`${currency} ${totalsum}`}</strong></div>
                     </div>
                     <hr />
                     <div className="d-flex justify-content-between align-items-center">
