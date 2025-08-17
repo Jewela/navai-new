@@ -139,7 +139,7 @@ function Subscription() {
     }
   }
 
-  const handleAddToClick = async (totalPrice, duration) => {
+  const handleAddToClick = async (totalPrice, duration, durationIn) => {
     dispatch({
       type: CART_ACTIONS.UPDATE_CART,
       payload: {
@@ -147,6 +147,7 @@ function Subscription() {
         type: SUBSCRIPTION_TYPES.USER_SUBSCRIPTION,
         currency: 'USD',
         currencySymbol: '$',
+        durationIn,
         cartItems: [{
           quantity: 1,
           avatarId:avatarDetails?.Avatarid,
@@ -290,14 +291,14 @@ function Subscription() {
                       <div className="mb-1">
                         <span className="text-muted fs-4">$</span>
                         <span id="basic-price" className="display-4 fw-bold">{item.actualPriceWithoutDiscount}</span>
-                        <span className="text-muted fw-medium">{item.forDuration} month</span>
+                        <span className="text-muted fw-medium"> {item.durationIn === 'Months' ? `/ ${item.forDuration > 1 ? `${item.forDuration} months` : 'month'}` : `/ ${item.forDuration > 1 ? `${item.forDuration} days` : 'day'}`} </span>
                       </div>
 
                       <div className="mb-4">
-                        <span>Duratin: </span><strong>{item.forDuration} month</strong>
+                        <span>Duration: </span><strong>{item.durationIn === `Months` ? `${item.forDuration} ${item.durationIn === 'Months' ? `${item.forDuration > 1 ? 'months' : 'month'}` : `${item.forDuration > 1 ? 'days' : 'day'}`}` : 'Custom'}</strong>
                       </div>
 
-                      <button onClick={() => handleAddToClick(item.actualPriceWithoutDiscount, item.forDuration)} className="btn btn-primary">
+                      <button onClick={() => handleAddToClick(item.actualPriceWithoutDiscount, item.forDuration, item.durationIn)} className="btn btn-primary">
                         Add To Cart
                       </button>
                     </div>

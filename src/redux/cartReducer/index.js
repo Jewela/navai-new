@@ -17,7 +17,8 @@ function CartReducer(state = initialState, action) {
                 currency: action.payload.currency,
                 currencySymbol: action.payload.currencySymbol,
                 cartItems: action.payload.cartItems,
-                avatarDetails: action.payload?.avatarDetails || {}
+                avatarDetails: action.payload?.avatarDetails || {},
+                durationIn: action.payload?.durationIn || 'Months',
             };
             localStorage.setItem(STORAGE_INDEXES.CART, JSON.stringify(cart));
             return cart;

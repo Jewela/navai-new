@@ -1,0 +1,9 @@
+.custom-card {
+  background-color: #f8fafc !important; /* light gray */
+}
+
+.custom-input {
+  background-color: #f1f5f9 !important; /* soft gray input */
+  color: #1f2937 !important; /* dark gray text */
+  border: 1px solid #cbd5e1 !important; /* subtle border */
+}

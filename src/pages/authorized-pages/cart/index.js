@@ -28,6 +28,7 @@ import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import '../../../assets/css/stripestyles.css'
+import './index.css'
 // const stripePromise = loadStripe(STRIPE.PUBLISH_KEY);
 const stripePromise = loadStripe('pk_test_51Kjf1aHgx5IfzWEDsNKgsQfIczJpw2tNsF6GA72KvmCpQNVcUrPFRYP1Ix6HoglF8CmVP6n4uUG671ZxqDkdKFoo00cZKCTXz5');
 
@@ -43,15 +44,43 @@ function Cart() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [avatarImage, setAvatarImage] = useState("/images/avator-4.jpg");
-  const { type, cartItems, currency, currencySymbol, avatarDetails = {} } = useSelector((state) => state.cart);
+  const { type, cartItems, currency, currencySymbol, avatarDetails = {}, durationIn } = useSelector((state) => state.cart);
   const [clientSecret, setClientSecret] = useState("");
   const [isLoading, setLoading] = useState(true);
   const [isCheckoutLoading, setCheckoutLoading] = useState(false);
   const [strpeIntententStatus, setStrpeIntententStatus] = useState(false);
+  const todayDate = new Date().toISOString().split("T")[0]; // yyyy-mm-dd
 
-  const totalsum = cartItems.reduce((total, item) => {
-    return total + (item.price * item.quantity);
-  }, 0);
+  // Default isoDate = tomorrow
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const [isoDate, setIsoDate] = useState(tomorrow.toISOString().split("T")[0]);
+  const [dateDifference, setDateDifference] = useState(1);
+
+  const handleChange = (e) => {
+    const localDate = e.target.value; // e.g. "2025-08-17"
+    const utcDate = new Date(localDate).toISOString();
+    setIsoDate(localDate);
+
+    // Convert both dates to Date objects
+    const selected = new Date(localDate);
+    const today = new Date(todayDate);
+
+    // Difference in milliseconds
+    const diffMs = selected.getTime() - today.getTime();
+
+    // Convert to days
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    setDateDifference(diffDays);
+
+  };
+
+  const totalsum = Math.round(
+    dateDifference * cartItems.reduce((total, item) => {
+      return total + item.price * item.quantity;
+    }, 0) * 100
+  ) / 100;
 
   const haneleCheckout = async () => {
     const [{avatarId, duration, price}] = cartItems
@@ -65,8 +94,15 @@ function Cart() {
       const payload = {
         "avatarIds": [avatarId],
         "duration": duration,
-        "amount": price
+        "amount": totalsum
       };
+      if(durationIn === 'Days') {
+        payload.subscriptionDateTimeRange = {
+          "startDateTime": todayDate,
+          "endDateTime": isoDate
+        }
+        delete payload.duration;
+      }
       const response = await postRequest(SUBSCRIPTION.CHECKOUT_SESSION, payload);
 
       const { status, data: { data } } = response;
@@ -219,8 +255,39 @@ function Cart() {
                                   <div className="mx-3">
                                     <h5>{item.title}</h5>
                                     <div className="d-flex">
-                                      <h4>{`${item.currency} ${item.price}`}</h4><span className="mx-2"> for </span> <strong className="">{item.duration} months</strong>
+                                      <h4>{`${item.currency} ${item.price}`}</h4><span className="mx-2"> for </span> <strong className="">{item.duration} {durationIn === 'Months' ? `${item.duration > 1 ? 'months' : 'month'}` : `${item.duration > 1 ? 'days' : 'day'}`}</strong>
                                     </div>
+                                    {durationIn === "Days" && (
+                                      <div className="card p-3 shadow-sm rounded-3 w-100 custom-card">
+                                        <h6 className="mb-3 fw-bold text-dark">Select Duration</h6>
+
+                                        <div className="row g-3">
+                                          {/* From Date */}
+                                          <div className="col-md-6">
+                                            <label className="form-label fw-semibold text-secondary">From Date</label>
+                                            <input
+                                              type="date"
+                                              className="form-control custom-input"
+                                              value={todayDate}
+                                              readOnly
+                                            />
+                                          </div>
+
+                                          {/* To Date */}
+                                          <div className="col-md-6">
+                                            <label className="form-label fw-semibold text-secondary">To Date</label>
+                                            <input
+                                              type="date"
+                                              className="form-control custom-input"
+                                              value={isoDate}
+                                              onChange={handleChange}
+                                              min={todayDate}
+                                            />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    )}
+
                                   </div>
                                 </div>
                               </div>
@@ -235,6 +302,10 @@ function Cart() {
                 <div className="col-12 col-sm-12 col-md-8 col-lg-4">
                   <div className="rounded-3 p-4 sticky-top">
                     <h6 className="mb-4">Order Summary</h6>
+                    {durationIn === 'Days' && (<div className="d-flex justify-content-between align-items-center">
+                      <div>Number of days</div>
+                      <div>{dateDifference}</div>
+                    </div>)}
                     <div className="d-flex justify-content-between align-items-center">
                       <div>Subtotal</div>
                       <div><strong>{`${currency} ${totalsum}`}</strong></div>
