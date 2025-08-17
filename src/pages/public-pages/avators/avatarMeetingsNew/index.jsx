@@ -438,12 +438,12 @@ const AvatarMeetingsNew = () => {
                     fileName = 'audio.wav';
                 }
                 
-                formData.append('audioFile', userAudioBlobl, fileName);
+                formData.append('request', userAudioBlobl, fileName);
             }
     
             const response = await axios.post(
                 `https://afterlifeapi-afterlifeapislot1.azurewebsites.net/api/UserBotChat/GetWithVoice/${avatorId}`,
-                formData,
+                userAudioBlobl ? formData : {},
                 {
                     headers: {
                         "Content-Type": "multipart/form-data",
