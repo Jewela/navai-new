@@ -634,7 +634,7 @@ const AvatarMeetingsNew = () => {
 
                 const { isActive } = userAvatarSubscription;
 
-                if (!hasAvatarActiveSubscription) {
+                if (!isActive) {
                     dispatch({
                         type: CART_ACTIONS.UPDATE_CART,
                         payload: {
