@@ -4,12 +4,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import VideoFeedNew from './VideoFeedNew';
-import { AVTAR } from '../../../../app/config/endpoints';
+import { AVTAR, SUBSCRIPTION } from '../../../../app/config/endpoints';
 import { Spinner } from 'react-bootstrap';
 import { DEFAULT_AVATAR_IMG, DEFAULT_VALUE, RESPONSE_CODE, SUBSCRIPTION_TYPES } from '../../../../app/constants';
 import { getToken } from '../../../../app/Auth';
 import { getErrorMessage } from '../../../../utils/helpers/apiErrorResponse';
-import { postRequest } from '../../../../app/httpClient/axiosClient';
+import { getRequest, postRequest } from '../../../../app/httpClient/axiosClient';
 import actions, { CART_ACTIONS, CHAT_ACTIONS } from '../../../../redux/authenticate/actions';
 import axios from 'axios';
 import "./styles.css"
@@ -607,15 +607,21 @@ const AvatarMeetingsNew = () => {
     }, []);
 
     // All your existing functions remain the same...
-    async function getAvtarById(url) {
+    async function getAvtarById(url, subscriptionUrl) {
         setLoading(true);
         const LOCALE = DEFAULT_VALUE.LOCALE
 
         let payloadData = JSON.stringify({
             id: avatorId,
         });
+        let userAvatarList = [];
 
         try {
+            if (subscriptionUrl) {
+                const { data } = await getRequest(subscriptionUrl);
+                userAvatarList = data?.data || [];
+                console.log("User Avatar List: ", userAvatarList);
+            }
             const { status, data: { httpStatusCode }, data: { data } } = await postRequest(url, payloadData);
             if (status === RESPONSE_CODE[200] && httpStatusCode === RESPONSE_CODE[200]) {
 
@@ -633,8 +639,10 @@ const AvatarMeetingsNew = () => {
                 }
 
                 const { isActive } = userAvatarSubscription;
+                const currentAvatar = userAvatarList.find(item => item.avatarId === parseInt(avatorId));
 
-                if (!isActive) {
+                // if (!isActive) {
+                if (!currentAvatar?.isSubscriptionActive) {
                     dispatch({
                         type: CART_ACTIONS.UPDATE_CART,
                         payload: {
@@ -724,7 +732,7 @@ const AvatarMeetingsNew = () => {
     }
 
     useEffect(() => {
-        getAvtarById(AVTAR.EDIT);
+        getAvtarById(AVTAR.EDIT, SUBSCRIPTION.GET_ALL_USER_SUBSCRIBED_AVATARS);
         window.scrollTo({
             top: 0,
             left: 0,

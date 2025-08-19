@@ -139,6 +139,7 @@ export const profile = {
 };
 
 export const SUBSCRIPTION = {
+  GET_ALL_USER_SUBSCRIBED_AVATARS: `${BASEURL}/Subscription/GetUserAvatarSubscription`,
   LIST: `${BASEURL}/Subscription/GetSubscriptionPrice`,
   SUBS_MODEL: `${BASEURL}/Subscription/GetSubscriptionModels`,
   CHECKOUT_SESSION: `${BASEURL}/CreateCustomStripeSubscription`,
