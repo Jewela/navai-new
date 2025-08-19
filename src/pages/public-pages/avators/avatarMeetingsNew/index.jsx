@@ -13,6 +13,7 @@ import { getRequest, postRequest } from '../../../../app/httpClient/axiosClient'
 import actions, { CART_ACTIONS, CHAT_ACTIONS } from '../../../../redux/authenticate/actions';
 import axios from 'axios';
 import "./styles.css"
+import { Comment, ThreeDots } from 'react-loader-spinner';
 
 const myCustomTheme = {
     ... teamsLightTheme,
@@ -931,10 +932,50 @@ const AvatarMeetingsNew = () => {
                         <Avatar style={{maxHeight: '200px', maxWidth: '200px', minHeight: '80px', minWidth: '80px'}} image={{ src: avatorDetails.image || DEFAULT_AVATAR_IMG}}/>
                         {/* <Text size={300} weight={500}>{avatorDetails.name}</Text> */}
                         {isAudioPlaying && (
-                            <Text size={200} style={{color: '#00ff00', fontWeight: 'bold'}}>Speaking...</Text>
+                            <ThreeDots
+                            visible={true}
+                            height="40"
+                            width="40"
+                            color="#00ff00"
+                            radius="9"
+                            ariaLabel="three-dots-loading"
+                            wrapperStyle={{}}
+                            wrapperClass=""
+                            />
+                            // <Comment
+                            // visible={true}
+                            // height="40"
+                            // width="40"
+                            // ariaLabel="comment-loading"
+                            // wrapperStyle={{}}
+                            // wrapperClass="comment-wrapper"
+                            // color="#fff"
+                            // backgroundColor="#00ff00"
+                            // />
+                            // <Text size={200} style={{color: '#00ff00', fontWeight: 'bold'}}>Speaking...</Text>
                         )}
                         {isConversatingLoading && (
-                            <Text size={200} style={{color: '#ffaa00', fontWeight: 'bold'}}>Processing...</Text>
+                            <ThreeDots
+                            visible={true}
+                            height="40"
+                            width="40"
+                            color="#ffaa00"
+                            radius="9"
+                            ariaLabel="three-dots-loading"
+                            wrapperStyle={{}}
+                            wrapperClass=""
+                            />
+                            // <Comment
+                            // visible={true}
+                            // height="40"
+                            // width="40"
+                            // ariaLabel="comment-loading"
+                            // wrapperStyle={{}}
+                            // wrapperClass="comment-wrapper"
+                            // color="#fff"
+                            // backgroundColor="#ffaa00"
+                            // />
+                            // <Text size={200} style={{color: '#ffaa00', fontWeight: 'bold'}}>Processing...</Text>
                         )}
                     </div>
                 </div>
