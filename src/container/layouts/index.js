@@ -42,6 +42,12 @@ function Layout(props) {
         }
     }, []);
 
+    useEffect(() => {
+        if (!isAuthenticated && pathname !== "/") {
+            navigate("/", { replace: true });
+        }
+    }, [isAuthenticated, pathname, navigate]);
+
     return (
         <div className={`App ${isAuthenticated ? 'user-logged' : ''}`}>
             {new RegExp(`^/${PLAYGROUND_SLUG}/\\d+$`).test(pathname) ? null : <Header />}
