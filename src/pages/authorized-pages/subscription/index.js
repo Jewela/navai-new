@@ -91,7 +91,8 @@ function Subscription() {
         httpStatusCode === RESPONSE_CODE[200]
       ) {
         console.log(data)
-        setSubscriptionPlans(data)
+        const sortedData = data.sort((a, b) => a.actualPriceWithoutDiscount - b.actualPriceWithoutDiscount);
+        setSubscriptionPlans(sortedData)
         // navigate(AUTH_ROUTE_SLUGS.SUBSCRIBE.CART)
         setLoading(false);
       } else {
