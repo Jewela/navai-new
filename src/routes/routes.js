@@ -115,6 +115,11 @@ export const ProtectedRoutes = [
 
 export const AuthorizedRoutes = [
   {
+    slug: AUTH_ROUTE_SLUGS.SUBSCRIBE.SUBSCRIBED_AVATARS,
+    component: lazy(() => import("../pages/authorized-pages/avtars/SubscribedAvatars")),
+    exact: true,
+  },
+  {
     slug: AUTH_ROUTE_SLUGS.PROFILE,
     component: lazy(() => import("../pages/authorized-pages/profile")),
     exact: true,

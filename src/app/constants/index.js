@@ -239,6 +239,7 @@ export const AUTH_ROUTE_SLUGS = {
     CART: "/cart",
     PAYMENT_SUCCESS: "/payment-success",
     PAYMENT_CALLBACK: "/payment-callback",
+    SUBSCRIBED_AVATARS: "/avatars/active",
   },
   PLAYGROUND: "/playground",
   MANAGE_EMPLOYEE: "/manage-employee",

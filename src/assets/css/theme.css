@@ -330,7 +330,7 @@ span.hero__tagline {
   position: absolute;
   top: 5px;
   right: 5px;
-  width: 15px;
+  /* width: 15px; */
   height: 15px;
   display: flex;
   align-items: center;
