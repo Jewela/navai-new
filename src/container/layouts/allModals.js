@@ -4,6 +4,7 @@ import BusinessAuthModal from '../../components/UI/Modal/BusinessAuth/BusinessAu
 import AuthModal from "../../components/UI/Modal/Auth";
 import { Outlet } from "react-router-dom";
 import actions from "../../redux/authenticate/actions";
+import EnableMeetingRecordingConfirmDialog from "../../components/UI/Modal/EnableMeetingRecordingConfirmDialog";
 
 const allModals = () => {
 
@@ -13,6 +14,7 @@ const allModals = () => {
         openAuthModal,
         openBusinessAuthModal,
         openSubscriptioinModal,
+        openEnableMeetingRecordingConfirmModal,
         preventClose = false,
     } = useSelector((state) => state.auth);
 
@@ -22,6 +24,7 @@ const allModals = () => {
     const handleClose = () => {
         dispatch({ type: actions.CLOSE_AUTH_MODAL });
         dispatch({ type: actions.CLOSE_BUSINESS_AUTH_MODAL });
+        dispatch({ type: actions.CLOSE_ENABLE_MEETING_RECORDING_CONFIRM_MODAL });
     };
 
     return (
@@ -46,6 +49,14 @@ const allModals = () => {
                 
             <UserSubscriptionDialog
                 show={openSubscriptioinModal ? true : false}
+                preventClose={preventClose}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+            />
+
+            <EnableMeetingRecordingConfirmDialog
+                show={openEnableMeetingRecordingConfirmModal ? true : false}
                 preventClose={preventClose}
                 onHide={handleClose}
                 backdrop="static"

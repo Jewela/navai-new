@@ -91,6 +91,14 @@ function Reducer(state = initialState, action) {
         openSubscriptioinModal: true,
         preventClose: action?.payload?.preventClose || false,
       };
+    case actions.OPEN_ENABLE_MEETING_RECORDING_CONFIRM_MODAL:
+      return {
+        ...state,
+        openEnableMeetingRecordingConfirmModal: true,
+        preventClose: action?.payload?.preventClose || false,
+      };
+    case actions.CLOSE_ENABLE_MEETING_RECORDING_CONFIRM_MODAL:
+      return { ...state, openEnableMeetingRecordingConfirmModal: false };
 
     case actions.CLOSE_SUBSCRIPTION_MODAL:
       return { ...state, openSubscriptioinModal: false };
