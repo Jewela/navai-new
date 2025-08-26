@@ -51,6 +51,10 @@ const AvatarMeetingsNew = () => {
     const [recordingDuration, setRecordingDuration] = useState(0);
     const [recordedAudioBlob, setRecordedAudioBlob] = useState(null);
 
+    // Recording permission state
+    const [recordingEnabled, setRecordingEnabled] = useState(false);
+    const [recordingPromptShown, setRecordingPromptShown] = useState(false);
+
     const classes = useStyles();
     
     // Refs for session recording
@@ -90,16 +94,35 @@ const AvatarMeetingsNew = () => {
     const [avtarDetail, setAvtarDetail] = useState({});
     const [isAudioPlaying, setIsAudioPlaying] = useState(false);
     const [isConversatingLoading, setIsConversatingLoading] = useState(false);
+    const [enableRecording, setEnableRecording] = useState(false);
 
     const audioRef = useRef(null);
     const cancelAudioRef = useRef(false);
     const hasCalledOnce = useRef(false);
+    const avatarDetailsSet = useRef(false);
 
     const {
         avatarList: recentFavAvatarList = []
     } = useSelector(state => state.recent_avatar);
     const [{ avatarid: recentAvatarId = 0 } = {}] = recentFavAvatarList;
-    
+
+    // Recording confirmation modal handler
+    const handleRecordingConfirmation = (enableRecording) => {
+        setRecordingEnabled(enableRecording);
+        setRecordingPromptShown(true);
+        
+        if (enableRecording) {
+            // Start session recording automatically
+            // getAvatarChat will be called after screen selection is confirmed
+            startSessionRecording();
+        } else {
+            // If recording is disabled, call getAvatarChat immediately
+            console.log('Recording disabled, calling getAvatarChat directly');
+            hasCalledOnce.current = true;
+            getAvatarChat();
+        }
+    };
+
     // Enhanced session recording functions
     const startSessionRecording = async () => {
         try {
@@ -129,6 +152,12 @@ const AvatarMeetingsNew = () => {
     
             screenStreamRef.current = screenStream;
             console.log('Screen capture started');
+
+            // NOW call getAvatarChat after user has confirmed screen selection
+            if (!hasCalledOnce.current) {
+                hasCalledOnce.current = true;
+                getAvatarChat();
+            }
     
             // Get user microphone
             let userMicStream = null;
@@ -287,6 +316,12 @@ const AvatarMeetingsNew = () => {
             setRecordingError(errorMessage);
             setToggleRecord(false);
             cleanupRecordingResources();
+
+            // IMPORTANT: Still call getAvatarChat even if recording fails
+            if (!hasCalledOnce.current) {
+                hasCalledOnce.current = true;
+                getAvatarChat();
+            }
         }
     };
 
@@ -580,10 +615,10 @@ const AvatarMeetingsNew = () => {
     useEffect(() => {
         cancelAudioRef.current = false;
 
-        if (!hasCalledOnce.current) {
-            hasCalledOnce.current = true;
-            getAvatarChat();
-        }
+        // if (!hasCalledOnce.current) {
+        //     hasCalledOnce.current = true;
+        //     getAvatarChat();
+        // }
 
         return () => {
             cancelAudioRef.current = true;
@@ -607,7 +642,7 @@ const AvatarMeetingsNew = () => {
         };
     }, []);
 
-    // All your existing functions remain the same...
+    // Modified getAvtarById function with recording prompt
     async function getAvtarById(url, subscriptionUrl) {
         setLoading(true);
         const LOCALE = DEFAULT_VALUE.LOCALE
@@ -668,6 +703,7 @@ const AvatarMeetingsNew = () => {
                     avatarId: parseInt(avatorId),
                     lifeSummary: lifeSummary
                 });
+                avatarDetailsSet.current = true;
 
                 if (avatarChatId !== avatorId) {
                     dispatch({
@@ -686,6 +722,16 @@ const AvatarMeetingsNew = () => {
                     });
                 }
                 setLoading(false);
+
+                // NEW: Open recording confirmation modal after everything is set up
+                dispatch({
+                    type: actions.OPEN_ENABLE_MEETING_RECORDING_CONFIRM_MODAL,
+                    payload: { 
+                        preventClose: true,
+                        onConfirm: handleRecordingConfirmation // This function is already defined
+                    }
+                });
+                
             } else {
                 setLoading(false);
             }
@@ -904,24 +950,29 @@ const AvatarMeetingsNew = () => {
                             </div>
                         </div>
                         )}
-                        {toggleRecord && <div onClick={stopSessionRecording} className='d-flex flex-column align-items-center'>
-                            <Button 
-                                size='large' 
-                                appearance='transparent' 
-                                icon={<RecordStopFilled />} 
-                                style={{color: 'red'}}
-                                title={`Stop Recording (${formatDuration(recordingDuration)})`}
-                            />
-                        </div>}
-                        {!toggleRecord && <div onClick={startSessionRecording} className='d-flex flex-column align-items-center'>
-                            <Button 
-                                size='large' 
-                                appearance='transparent' 
-                                icon={<RecordFilled />}
-                                disabled={isSessionRecording}
-                                title="Start Session Recording"
-                            />
-                        </div>}
+                        {/* Only show recording controls if recording was enabled by user */}
+                        {recordingEnabled && (
+                            <>
+                                {toggleRecord && <div onClick={stopSessionRecording} className='d-flex flex-column align-items-center'>
+                                    <Button 
+                                        size='large' 
+                                        appearance='transparent' 
+                                        icon={<RecordStopFilled />} 
+                                        style={{color: 'red'}}
+                                        title={`Stop Recording (${formatDuration(recordingDuration)})`}
+                                    />
+                                </div>}
+                                {!toggleRecord && <div onClick={startSessionRecording} className='d-flex flex-column align-items-center'>
+                                    <Button 
+                                        size='large' 
+                                        appearance='transparent' 
+                                        icon={<RecordFilled />}
+                                        disabled={isSessionRecording}
+                                        title="Start Session Recording"
+                                    />
+                                </div>}
+                            </>
+                        )}
                     </div>
                 </div>
                 <div style={{ width: '20%' }} className='d-flex p-2 align-items-center'>

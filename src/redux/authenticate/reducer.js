@@ -95,10 +95,11 @@ function Reducer(state = initialState, action) {
       return {
         ...state,
         openEnableMeetingRecordingConfirmModal: true,
+        recordingConfirmCallback: action.payload?.onConfirm || null,
         preventClose: action?.payload?.preventClose || false,
       };
     case actions.CLOSE_ENABLE_MEETING_RECORDING_CONFIRM_MODAL:
-      return { ...state, openEnableMeetingRecordingConfirmModal: false };
+      return { ...state, openEnableMeetingRecordingConfirmModal: false, recordingConfirmCallback: null };
 
     case actions.CLOSE_SUBSCRIPTION_MODAL:
       return { ...state, openSubscriptioinModal: false };

@@ -15,6 +15,7 @@ const allModals = () => {
         openBusinessAuthModal,
         openSubscriptioinModal,
         openEnableMeetingRecordingConfirmModal,
+        recordingConfirmCallback,
         preventClose = false,
     } = useSelector((state) => state.auth);
 
@@ -61,6 +62,7 @@ const allModals = () => {
                 onHide={handleClose}
                 backdrop="static"
                 keyboard={false}
+                onConfirm={recordingConfirmCallback}
             />
 
             <div className="common-parent-container">
