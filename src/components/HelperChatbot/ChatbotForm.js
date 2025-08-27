@@ -267,7 +267,7 @@ function ChatbotForm({ selectedBox, setSelectedBox, skipTake, setSkipTake, avata
       <div className="chatboat-box-field">
         <div className="auto-scroll   ">
           <div style={{ marginLeft: "17px" }} className="d-block  my-3 ">
-            {avaterInfo?.personalDetailDto?.defaultButton
+            {/* {avaterInfo?.personalDetailDto?.defaultButton
               .filter((v) => ["RequestDemo", "ContactSale"].includes(v.name))
               ?.map((button) => {
                 return (
@@ -286,7 +286,7 @@ function ChatbotForm({ selectedBox, setSelectedBox, skipTake, setSkipTake, avata
                     </button>
                   </div>
                 );
-              })}
+              })} */}
           </div>
           <div
             className={`${requestAction?.actionName === "Popup" ? "d-block " : "d-none "
