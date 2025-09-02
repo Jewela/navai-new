@@ -4,11 +4,13 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import Footer from './footer/'
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { ADMIN_ROUTE_SLUGS, ADMIN_PROTECTED_ROUTE, USER_ROLES, STORAGE_INDEXES, DEFAULT_VALUE, ROUTE_SLUGS, AUTH_ROUTE_SLUGS } from '../../app/constants';
+import { ADMIN_ROUTE_SLUGS, ADMIN_PROTECTED_ROUTE, USER_ROLES, STORAGE_INDEXES, DEFAULT_VALUE, ROUTE_SLUGS, AUTH_ROUTE_SLUGS, PUBLIC_ROUTES_SLUGS } from '../../app/constants';
 import toast from 'react-hot-toast';
 import { RESPONSE_MESSAGES } from '../../app/constants/localizedStrings';
 import actions, { logout } from '../../redux/authenticate/actions';
 const AdminLayout = lazy(() => import('./adminLayout'))
+
+const PUBLIC_ROUTES = Object.values(PUBLIC_ROUTES_SLUGS);
 
 const PLAYGROUND_SLUG = 'playground';
 
@@ -43,8 +45,10 @@ function Layout(props) {
     }, []);
 
     useEffect(() => {
-        if (!isAuthenticated && pathname !== "/") {
-            navigate("/", { replace: true });
+        const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
+
+        if (!isAuthenticated && !isPublicRoute) {
+        navigate("/", { replace: true });
         }
     }, [isAuthenticated, pathname, navigate]);
 
