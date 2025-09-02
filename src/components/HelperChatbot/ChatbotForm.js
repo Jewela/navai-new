@@ -121,8 +121,8 @@ function ChatbotForm({ selectedBox, setSelectedBox, skipTake, setSkipTake, avata
         isFirstSession
       );
       if (
-        status === RESPONSE_CODE[200] &&
-        httpStatusCode === RESPONSE_CODE[200]
+        status === RESPONSE_CODE[200] 
+        // && httpStatusCode === RESPONSE_CODE[200]
       ) {
         const { queryId, response, avatarId, error, isError } = data;
         setQueryId(queryId);
