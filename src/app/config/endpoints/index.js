@@ -49,7 +49,7 @@ export const AVTAR = {
   PROFILE: `${BASEURL}${PREFIX}/User/UserProfile/GetUserProfile`,
   CHAT_RESPONSE: `${BASEURL}${PREFIX}/UserBotChat/GetBotResponse`,
   // CHAT_HELPER_RESPONSE: `${BASEURL}${PREFIX}/UserBotChat/GetHelperBotResponse`,
-  CHAT_HELPER_RESPONSE: `http://13.58.196.1:8000/api/get_conversation_response`,
+  CHAT_HELPER_RESPONSE: `https://bot.aiapi.online/api/get_conversation_response`,
   CHAT_BOT_RESPONSE: `${BASEURL}${PREFIX}/UserBotChat/GetBotResponse`,
   CHAT_EMAIL_CAPTURE: `${BASEURL}${PREFIX}/CreateBotAccess/raise`,
   AUDIO_CHAT_RESPONSE: `${BASEURL}${PREFIX}/UserBotChat/GetWithVoice`,
