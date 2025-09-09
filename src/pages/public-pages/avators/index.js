@@ -31,12 +31,16 @@ function Avators() {
   const [totalRecords, setTotalRecords] = useState(PAGINATIOIN.TOTAL_RECORDS);
   const [isLimitReached, setIsLimitReached] = useState(false);
 
-  async function getAvtar(url) {
+  async function getAvtar(url, filterRequired) {
     setLoadMore(true);
     const LOCALE = DEFAULT_VALUE.LOCALE;
-    let payloadData = JSON.stringify({
+    let payloadData = {
       take: takeRecord,
       skip: skipRecord,
+    };
+    // let payloadData = JSON.stringify({
+    //   take: takeRecord,
+    //   skip: skipRecord,
       // filter: {
       //   logic: "and",
       //   filters: [
@@ -57,7 +61,7 @@ function Avators() {
       //     // },
       //   ],
       // },
-    });
+    // });
 
     if (filterRequired) {
       payloadData['filter'] = {
