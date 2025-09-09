@@ -191,7 +191,7 @@ function AvtarLists(props) {
                                     </OverlayTrigger>
                                 }
                             </div> */}
-                            <span role="button" className="tryit btn btn-sm primary-btn">Try It</span>
+                            {/* <span role="button" className="tryit btn btn-sm primary-btn">Try It</span> */}
 
                             <div className="avator__items__options">
                                 <OverlayTrigger
