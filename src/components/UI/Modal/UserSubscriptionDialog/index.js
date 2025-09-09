@@ -41,11 +41,13 @@ function UserSubscriptionDialog(props) {
         </Modal.Header>
         <Modal.Body>
           <p>User subscription is required to access this Avatar.</p>
-          <div className="d-flex justify-content-center">
-            <button className="btn btn-sm primary-btn me-2" onClick={handleNavigation}>Buy subscription</button>
-            <button className="btn btn-sm primary-btn" onClick={handleCancel}>Cancel</button>
-          </div>
         </Modal.Body>
+        <Modal.Footer>
+          <div className="d-flex justify-content-end gap-2">
+            <button className="btn btn-sm primary-outline" onClick={handleCancel}>Cancel</button>
+            <button className="btn btn-sm primary-btn" onClick={handleNavigation}>Buy subscription</button>
+          </div>
+        </Modal.Footer>
       </Modal>
     </>
   );

@@ -46,27 +46,27 @@ function EnableMeetingRecordingConfirmDialog({ onConfirm  , ...props}) {
           <Modal.Title>Enable Session Recording</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div>
-            <p className="mb-3">
-              Would you like to enable session recording for this avatar meeting? 
-              This will record your screen, microphone, and avatar audio.
-            </p>
-            <div className="d-flex justify-content-center gap-2">
-              <button 
-                className="btn btn-sm primary-btn me-2" 
-                onClick={handleEnableRecording}
-              >
-                Yes
-              </button>
-              <button 
-                className="btn btn-sm primary-btn" 
-                onClick={handleDisableRecording}
-              >
-                No
-              </button>
-            </div>
-          </div>
+          <p>
+            Would you like to enable session recording for this avatar meeting?
+            This will record your screen, microphone, and avatar audio.
+          </p>
         </Modal.Body>
+        <Modal.Footer>
+          <div className="d-flex justify-content-end gap-2">
+            <button
+              className="btn btn-sm primary-outline"
+              onClick={handleDisableRecording}
+            >
+              No
+            </button>
+            <button
+              className="btn btn-sm primary-btn"
+              onClick={handleEnableRecording}
+            >
+              Yes
+            </button>
+          </div>
+        </Modal.Footer>
       </Modal>
     </>
   );
