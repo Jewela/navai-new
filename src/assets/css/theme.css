@@ -1461,7 +1461,12 @@ span.filter-items.checked::before {
   display: flex;
   gap: 10px;
   align-items: center;
-  background: #006aff;
+  background: radial-gradient(153.77% 642.13% at 8.5% 153.77%,
+    #3F0D5E 0%,
+    #000000 100%
+  );
+      /* #4046c8 0%,
+      #b429c0 100%); */
   padding: 10px;
   position: relative;
 }
@@ -1524,7 +1529,8 @@ span.filter-items.checked::before {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: var(--btn-secondary-clr);
+  background-color: #3F0D5E;
+   /* var(--btn-secondary-clr); */
   display: flex;
   align-items: center;
   justify-content: center;
