@@ -266,7 +266,7 @@ const AvatarMeetingsNew = () => {
                 if (event.data.size > 0) {
                     sessionChunksRef.current.push(event.data);
                     setSessionChunks(prev => [...prev, event.data]);
-                    console.log(`Recorded chunk: ${event.data.size} bytes`);
+                    // console.log(`Recorded chunk: ${event.data.size} bytes`);
                 }
             };
     
@@ -500,23 +500,43 @@ const AvatarMeetingsNew = () => {
             // CRITICAL: Set crossOrigin BEFORE setting src
             audio.crossOrigin = "anonymous";
             audioRef.current = audio;
-    
+
+            // CRITICAL FIX: Force connection attempt regardless of event timing
+            const forceConnection = () => {
+                // CRITICAL FIX: Use sessionRecorderRef.current instead of isSessionRecording state
+                const isRecordingActive = sessionRecorderRef.current && sessionRecorderRef.current.state === 'recording';
+                
+                if (isRecordingActive && audioContextRef.current && destinationRef.current) {
+                    console.log('All conditions met, calling connectAvatarAudioToRecording');
+                    connectAvatarAudioToRecording(audio);
+                } else {
+                    console.log('Recording not ready yet - conditions:', {
+                        isRecordingActive,
+                        hasAudioContext: !!audioContextRef.current,
+                        hasDestination: !!destinationRef.current
+                    });
+                }
+            };
+
+
             // Enhanced audio connection for recording
             audio.addEventListener("canplaythrough", () => {
                 console.log('Avatar audio ready to play');
-                
-                // Connect to recording mix if session recording is active
-                if (isSessionRecording && audioContextRef.current && destinationRef.current) {
-                    connectAvatarAudioToRecording(audio);
-                }
+                forceConnection();
             });
-    
+
+            audio.addEventListener("loadeddata", () => {
+                console.log('Avatar audio loaded');
+                forceConnection();
+            });
+
             audio.addEventListener("play", () => {
                 setIsAudioPlaying(true);
                 console.log('Avatar audio started playing');
                 
-                // Ensure connection even if not done in canplaythrough
-                if (isSessionRecording && audioContextRef.current && !avatarAudioSourceRef.current) {
+                // CRITICAL FIX: Use ref instead of state
+                const isRecordingActive = sessionRecorderRef.current && sessionRecorderRef.current.state === 'recording';
+                if (isRecordingActive && audioContextRef.current) {
                     connectAvatarAudioToRecording(audio);
                 }
             });
@@ -538,13 +558,26 @@ const AvatarMeetingsNew = () => {
             });
     
             setIsConversatingLoading(false);
-    
+
+            // CRITICAL FIX: Try connecting immediately after audio is created
+            setTimeout(() => {
+                forceConnection();
+            }, 100);
+
             // Play the audio
             if (!cancelAudioRef.current) {
-                audio.play().catch(e => {
-                    console.error('Error playing avatar audio:', e);
-                    setIsAudioPlaying(false);
-                });
+                // CRITICAL FIX: Add another connection attempt right before playing
+                setTimeout(() => {
+                    if (isSessionRecording && audioContextRef.current && destinationRef.current) {
+                        console.log('Final connection attempt before play');
+                        connectAvatarAudioToRecording(audio);
+                    }
+                    
+                    audio.play().catch(e => {
+                        console.error('Error playing avatar audio:', e);
+                        setIsAudioPlaying(false);
+                    });
+                }, 200);
             } else {
                 URL.revokeObjectURL(audioUrl);
             }

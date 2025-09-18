@@ -38,7 +38,7 @@ export default function VideoFeedNew({ user, videoCamera }) {
 
   const classes = useStyles();
 
-  console.log("VideoFeedNew user:", user);
+  // console.log("VideoFeedNew user:", user);
 
   useEffect(() => {
     backgroundImageRef.current = new Image();
