@@ -135,14 +135,18 @@ function AuthNavMenu() {
                 </Link>
               </>
               : <>
-                {userSubscriptionStatus
+                  <Link onClick={toggleNavbar} to={AUTH_ROUTE_SLUGS.SUBSCRIBE.SUBSCRIBED_AVATARS} className="nav-link">
+                    Subscribed Avatars
+                  </Link>
+                {/* Revert It Back */}
+                {/* {userSubscriptionStatus
                   ? <Link onClick={toggleNavbar} to={AUTH_ROUTE_SLUGS.SUBSCRIBE.SUBSCRIBED_AVATARS} className="nav-link">
                     Subscription
                   </Link>
                   : <Link onClick={toggleNavbar} to={AUTH_ROUTE_SLUGS.SUBSCRIBE.USER_SUBSCRIPTION} className="nav-link">
                     User Subscription
                   </Link>
-                }
+                } */}
               </>
             }
 
